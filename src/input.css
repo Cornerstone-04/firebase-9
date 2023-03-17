@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.container {
+  @apply w-full h-full flex flex-col justify-start items-center gap-[30px] bg-slate-900 text-white p-[20px];
+}
+
+h1 {
+  @apply text-4xl font-bold mt-[20px];
+}
+
+h2 {
+  @apply font-bold text-3xl;
+}
+
+form {
+  @apply flex flex-col gap-[10px] w-full max-w-[500px] p-[20px];
+}
+
+label {
+  @apply font-bold text-2xl;
+}
+
+input {
+  @apply w-full h-[50px] bg-slate-600 border-2 border-[#ccc] outline-none indent-[16px] text-xl font-sans font-medium mb-4;
+}
+
+button {
+  @apply w-full h-[45px] flex justify-center items-center bg-green-700 font-bold text-xl;
+}
+
+form.delete button {
+  @apply bg-red-700 !important;
+}

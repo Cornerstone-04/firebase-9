@@ -6,25 +6,26 @@
     <link rel="stylesheet" href="output.css" />
     <title>Firebase 9</title>
   </head>
-  <body>
-    <h1>Getting Started with firebase 9</h1>
+  <body class="w-full min-h-screen box-border m-0 p-0 bg-slate-900">
+    <div class="container">
+      <h1>Getting Started with firebase 9</h1>
 
-    <h2>Firebase Firestore</h2>
-    <form class="add">
-      <label for="title">Title:</label>
-      <input type="text" name="title" required />
-      <label for="author">Author</label>
-      <input type="text" name="author" required />
+      <h2>Firebase Firestore</h2>
+      <form class="add">
+        <label for="title">Title:</label>
+        <input type="text" name="title" required />
+        <label for="author">Author</label>
+        <input type="text" name="author" required />
 
-      <button>Add a new book</button>
-    </form>
-    <form class="delete">
-      <label for="id">Document id:</label>
-      <input type="text" name="id" required />
+        <button class="">Add a new book</button>
+      </form>
+      <form class="delete">
+        <label for="id">Document id:</label>
+        <input type="text" name="id" required />
 
-      <button>Delete a book</button>
-    </form>
-
+        <button>Delete a book</button>
+      </form>
+    </div>
     <script src="bundle.js"></script>
   </body>
 </html>

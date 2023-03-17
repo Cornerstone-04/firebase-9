@@ -4,9 +4,13 @@ import {
   collection,
   deleteDoc,
   doc,
-  getDocs,
+  getDoc,
   getFirestore,
   onSnapshot,
+  orderBy,
+  query,
+  serverTimestamp,
+  where,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -27,6 +31,9 @@ const db = getFirestore();
 //collection ref
 const colRef = collection(db, "books");
 
+// queries
+const q = query(colRef, orderBy("createdAt"));
+
 // get collection data
 /* getDocs(colRef)
   .then((snapshot) => {
@@ -42,7 +49,7 @@ const colRef = collection(db, "books");
  */
 
 // realtime data collection
-onSnapshot(colRef, (snapshot) => {
+onSnapshot(q, colRef, (snapshot) => {
   let books = [];
   snapshot.docs.forEach((doc) => {
     books.push({ ...doc.data(), id: doc.id });
@@ -58,6 +65,7 @@ addBookForm.addEventListener("submit", (e) => {
   addDoc(colRef, {
     title: addBookForm.title.value,
     author: addBookForm.author.value,
+    createdAt: serverTimestamp(),
   }).then(() => {
     addBookForm.reset();
   });
@@ -74,3 +82,15 @@ deleteBookForm.addEventListener("submit", (e) => {
     deleteBookForm.reset();
   });
 });
+
+//get a single document
+const singleRef = doc(db, "books", "Igxi8PuqdKvvSTlmvrzR");
+
+getDoc(singleRef).then((doc) => {
+  console.log(doc.data(), doc.id);
+});
+
+//get a single document in realtime
+onSnapshot(singleRef, (doc)=>{
+  console.log(doc.data(), doc.id)
+})
