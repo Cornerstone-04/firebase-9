@@ -23,17 +23,27 @@ form {
 }
 
 label {
-  @apply font-bold text-2xl;
+  @apply font-bold text-xl;
 }
 
 input {
-  @apply w-full h-[50px] bg-slate-600 border-2 border-[#ccc] outline-none indent-[16px] text-xl font-sans font-medium mb-4;
+  @apply w-full h-[50px] bg-slate-600 border-2 border-[#ccc] outline-none indent-[16px] text-lg font-sans font-medium mb-4;
 }
 
 button {
   @apply w-full h-[45px] flex justify-center items-center bg-green-700 font-bold text-xl;
 }
 
-form.delete button {
+form.delete button,
+button.logout {
   @apply bg-red-700 !important;
+}
+
+button.logout,
+button.unsub {
+  @apply max-w-[200px] flex justify-center items-center self-end;
+}
+
+.actions {
+  @apply w-full max-w-[500px] p-[20px] flex justify-between;
 }

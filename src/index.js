@@ -13,7 +13,14 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
+import displayToast from "./toast";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBxkb_DG-wf18Dlec_4vVoxSUUmiafUqQg",
@@ -23,6 +30,10 @@ const firebaseConfig = {
   messagingSenderId: "757862292132",
   appId: "1:757862292132:web:6cf14fafccea74fd3f6431",
 };
+
+// const displayToast = (label) => {
+
+// };
 
 // initialize firebase
 initializeApp(firebaseConfig);
@@ -52,7 +63,7 @@ const q = query(colRef, orderBy("createdAt"));
  */
 
 // realtime data collection
-onSnapshot(q, colRef, (snapshot) => {
+const uncubCol = onSnapshot(q, (snapshot) => {
   let books = [];
   snapshot.docs.forEach((doc) => {
     books.push({ ...doc.data(), id: doc.id });
@@ -94,7 +105,7 @@ getDoc(singleRef).then((doc) => {
 });
 
 //get a single document in realtime
-onSnapshot(singleRef, (doc) => {
+const unsubDoc = onSnapshot(singleRef, (doc) => {
   console.log(doc.data(), doc.id);
 });
 
@@ -111,3 +122,70 @@ updateForm.addEventListener("submit", (e) => {
   });
 });
 
+// sign in users
+const signupForm = document.querySelector(".signup");
+signupForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  // decalre email & password
+  const email = signupForm.email.value;
+  const password = signupForm.password.value;
+
+  // create a new user
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((cred) => {
+      console.log("user created:", cred.user);
+      signupForm.reset();
+    })
+    .catch((err) => {
+      displayToast(err.message, "top");
+    });
+});
+
+// log user in
+const loginForm = document.querySelector(".login");
+loginForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const email = loginForm.email.value;
+  const password = loginForm.password.value;
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then((cred) => {
+      console.log("user logged in:", cred.user);
+      displayToast("User logged in", "top");
+      loginForm.reset();
+    })
+    .catch((err) => {
+      displayToast(err.message);
+    });
+});
+
+// log user out
+const logUserOut = document.querySelector(".logout");
+logUserOut.addEventListener("click", (e) => {
+  signOut(auth)
+    .then(() => {
+      displayToast("User signed out.", "top");
+    })
+    .catch((err) => {
+      displayToast(err.message);
+    });
+});
+
+// subscribing to Auth changes
+const unsubAuth = onAuthStateChanged(auth, (user) => {
+  console.log(user);
+  if (user !== null) {
+    displayToast(user.email, "bottom");
+  } else displayToast("No user", "bottom");
+});
+
+// unsubscribing
+const unsubBtn = document.querySelector(".unsub");
+unsubBtn.addEventListener("click", () => {
+  displayToast("Unsubscribed", "top");
+  unsubAuth();
+  uncubCol();
+  unsubDoc();
+});

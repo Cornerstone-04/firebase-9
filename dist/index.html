@@ -4,6 +4,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="output.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
     <title>Firebase 9</title>
   </head>
   <body class="w-full min-h-screen box-border m-0 p-0 bg-slate-900">
@@ -40,6 +45,7 @@
       <hr />
 
       <h2>Firebase Auth</h2>
+
       <form class="signup">
         <label for="email">Email:</label>
         <input type="email" name="email" id="" />
@@ -47,7 +53,27 @@
         <input type="password" name="password" id="" />
         <button>Signup</button>
       </form>
+
+      <form class="login">
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="" />
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="" />
+        <button>Login</button>
+      </form>
+
+      <div class="actions">
+        <button class="logout">Logout</button>
+
+        <button class="unsub">Unsubscribe</button>
+      </div>
     </div>
+
+    <!-- scripts -->
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
     <script src="bundle.js"></script>
   </body>
 </html>
