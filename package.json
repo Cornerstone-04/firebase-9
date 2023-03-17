@@ -1,7 +1,7 @@
 {
   "name": "firebase9-tut",
   "version": "1.0.0",
-  "description": "",
+  "description": "Firebase 9 Tutorial using a book store and authentication form.",
   "main": "index.js",
   "scripts": {
     "start": "live-server dist --port=3000",
@@ -9,7 +9,7 @@
     "build": "webpack"
   },
   "keywords": [],
-  "author": "",
+  "author": "Cornerstone Ephraim",
   "license": "ISC",
   "devDependencies": {
     "tailwindcss": "^3.2.7",
