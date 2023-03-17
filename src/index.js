@@ -10,8 +10,10 @@ import {
   orderBy,
   query,
   serverTimestamp,
+  updateDoc,
   where,
 } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBxkb_DG-wf18Dlec_4vVoxSUUmiafUqQg",
@@ -27,6 +29,7 @@ initializeApp(firebaseConfig);
 
 // init services
 const db = getFirestore();
+const auth = getAuth();
 
 //collection ref
 const colRef = collection(db, "books");
@@ -91,6 +94,20 @@ getDoc(singleRef).then((doc) => {
 });
 
 //get a single document in realtime
-onSnapshot(singleRef, (doc)=>{
-  console.log(doc.data(), doc.id)
-})
+onSnapshot(singleRef, (doc) => {
+  console.log(doc.data(), doc.id);
+});
+
+// updating a form
+const updateForm = document.querySelector(".update");
+updateForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const docRef = doc(db, "books", updateForm.id.value);
+  updateDoc(docRef, {
+    title: "updated title",
+  }).then(() => {
+    updateForm.reset();
+  });
+});
+

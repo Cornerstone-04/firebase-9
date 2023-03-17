@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .container {
-  @apply w-full h-full flex flex-col justify-start items-center gap-[30px] bg-slate-900 text-white p-[20px];
+  @apply w-full min-h-full flex flex-col justify-start items-center gap-[30px] bg-slate-900 text-white p-[20px];
 }
 
 h1 {
@@ -12,6 +12,10 @@ h1 {
 
 h2 {
   @apply font-bold text-3xl;
+}
+
+hr {
+  @apply w-full;
 }
 
 form {
